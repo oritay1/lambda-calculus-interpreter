@@ -4,7 +4,29 @@ use crate::utils;
 
 /// Returns the set of free variables in a term.
 fn fv(t: &Term) -> HashSet<String> {
-    /// please insert your code here
+    // please insert your code here
+    match t {
+        // Base condition: FV(x) = {x}
+        Term::Variable(x) => {
+            let mut set = HashSet::new(); // Create an empty set
+            set.insert(x.clone());        // Insert a copy of x to the set
+            set                           // Return the set
+        }
+        // Recursion 1: FV(\x.body) = FV(body) - {x}
+        Term::Abstraction(x,body) => {
+            let mut xbody = fv(body); // Calculate: FV(body)
+            xbody.remove(x);          // Calculate: FV(body) - {x}
+            xbody                     // Return: FV(body) - {x}
+        }
+
+        // Recursion 2: FV(t1 t2) = FV(t1) + FV(t2)
+        Term::Application(t1, t2) => {
+            let mut set1 = fv(t1); // Calculate set1: FV(t1)
+            let set2 = fv(t2);     // Calculate set2: FV(t2)
+            set1.extend(set2);     // Calculate (union set): FV(t1) + FV(t2)
+            set1                   // Return the union set
+        }
+    }
 }
 
 /// Substitute: replace occurrences of `x` with `t1` inside `t2`.
