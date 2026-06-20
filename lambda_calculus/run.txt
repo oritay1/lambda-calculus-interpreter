@@ -1,0 +1,24 @@
+
+🛠️ Install Rust and cargo:
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+ 	press enter when needed
+source $HOME/.cargo/env
+
+🛠️ Verify installation:
+
+rustc --version
+cargo --version
+
+🛠️ How to Run
+To run this in Rust:
+
+1. Create a new Rust project: cargo new lambda_calculus
+
+2. Change into the project directory: cd lambda_calculus
+
+3. Place the code for lexer.rs, parser.rs, reducer.rs, and utils.rs inside the src/ directory.
+
+4. Replace the contents of src/main.rs with the main.rs code above.
+
+5. Run the project: cargo run
