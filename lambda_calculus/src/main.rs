@@ -51,6 +51,12 @@ fn main() {
     (((not and) fls) tru)
     ";
 
+    let s7  = "(\\t.t)";
+
+    let s8 = "((\\t.t) x)";
+
+    let s9 = "(((\\t.t) (\\f.f)) x)";
+
     println!("\nEvaluating:\n{}\nin cbn semantics:\n", s1);
     evaluate(reduce_cbn, parse(s1));
 
@@ -75,4 +81,16 @@ fn main() {
 
     println!("\n\n Testing on:\n{}\nReduce cbn\n", s6);
     evaluate(reduce_cbn, parse(s6));
+
+    // My test 1: Identity function in CBV (Irreducible value)
+    println!("\n\n Evaluating s7 in cbv semantics:\n");
+    evaluate(reduce_cbv, parse(s7));
+
+    // My test 2: Application on a free variable in CBN
+    println!("\n\n Evaluating s8 in cbn semantics:\n");
+    evaluate(reduce_cbn, parse(s8));
+
+    // My test 3: Stuck application in CBV due to variable not being a value
+    println!("\n\n Evaluating s9 in cbv semantics:\n");
+    evaluate(reduce_cbv, parse(s9));
 }
